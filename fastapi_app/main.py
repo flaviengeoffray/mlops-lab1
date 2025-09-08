@@ -1,13 +1,15 @@
 from fastapi import FastAPI
 
 import joblib
-
 import os
-filename = '../regression.joblib'
-if os.path.exists(filename):
-    model = joblib.load(filename)
-else:
-    raise FileNotFoundError(f"Model file not found: {filename}")
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_PATH = os.path.join(BASE_DIR, "regression.joblib")
+
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Model file not found: {MODEL_PATH}")
+
+model = joblib.load(MODEL_PATH)
 
 app = FastAPI()
 
