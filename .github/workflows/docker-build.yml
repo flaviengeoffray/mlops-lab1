@@ -39,9 +39,6 @@ jobs:
       run: sudo apt-get install -y sshpass
 
     - name: SSH into server and deploy application
-      with:
-        server_host: ${{ secrets.SERVER_HOST }}
-        password: ${{ secrets.SERVER_PASSWORD }}
       run: |
         sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_HOST }} << 'EOF'
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
@@ -51,3 +48,7 @@ jobs:
           docker run -d -p 80:8000 --name mlops-lab1 ${{ secrets.DOCKER_USERNAME }}/mlops-lab1:latest
           docker logout
         EOF
+      with:
+        server_host: ${{ secrets.SERVER_HOST }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+
