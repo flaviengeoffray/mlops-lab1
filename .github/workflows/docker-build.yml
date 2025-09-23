@@ -48,7 +48,3 @@ jobs:
           docker run -d -p 80:8000 --name mlops-lab1 ${{ secrets.DOCKER_USERNAME }}/mlops-lab1:latest
           docker logout
         EOF
-      with:
-        server_host: ${{ secrets.SERVER_HOST }}
-        password: ${{ secrets.SERVER_PASSWORD }}
-
